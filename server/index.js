@@ -44,10 +44,11 @@ app.post('/create', async (req, res) => {
     }
 })
 
-app.put('/user', async (req, res) => {
+app.put('/user/:id', async (req, res) => {
     try {
+        const id = req.params.id
         console.log(req.body);
-        const { id, ...rest } = req.body
+        const { ...rest } = req.body
         const data = await user.update(rest, { where: { id: id }, returning: true });
         res.json({ success: true, message: 'User updated successfully', data: data });
     } catch (error) {
@@ -55,5 +56,17 @@ app.put('/user', async (req, res) => {
         res.status(500).json({ success: false, message: 'Error updating User' });
     }
 });
+
+app.delete('/delete/:id', async (req, res) => {
+    try {
+        const id = req.params.id
+        console.log(id)
+        const data = await user.destroy({ where: { id: id } })
+        res.json({ success: true, message: 'User deleted successfully', data: data });
+    } catch (error) {
+        console.error('Error deleting User', error)
+        res.status(500).json({ success: false, message: 'Error updating User' })
+    }
+})
 
 app.listen(PORT, () => console.log("Server is running on the Port: ", PORT))
