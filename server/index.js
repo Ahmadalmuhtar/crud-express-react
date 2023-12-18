@@ -47,14 +47,9 @@ app.post('/create', async (req, res) => {
 app.put('/user/:id', async (req, res) => {
     try {
         const id = req.params.id;
-        console.log(req.body);
-
         const { ...rest } = req.body;
 
-        const [rowsUpdated, [updatedUser]] = await user.update(rest, {
-            where: { id: id },
-            returning: true,
-        });
+        const [rowsUpdated, [updatedUser]] = await user.update(rest, { where: { id: id }, returning: true });
 
         if (rowsUpdated === 0) {
             return res.status(404).json({ success: false, message: 'User not found' });
@@ -66,6 +61,7 @@ app.put('/user/:id', async (req, res) => {
         res.status(500).json({ success: false, message: 'Error updating User' });
     }
 });
+
 
 app.delete('/delete/:id', async (req, res) => {
     try {
