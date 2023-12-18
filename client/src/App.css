@@ -51,7 +51,7 @@ body {
   background-color: royalblue;
   color: white;
   font-weight: 500;
-  margin: 20px;
+  margin: 30px;
   cursor: pointer;
 }
 .addContainer form .close-btn {
@@ -65,4 +65,37 @@ body {
   border-radius: 20px;
   border: 1px solid#000;
   cursor: pointer;
+}
+.tableContainer table thead tr th{
+  min-width: 200px;
+}
+.tableContainer{
+  margin:  50px;
+  padding: 5px;
+
+}
+.tableContainer table thead tr,
+.tableContainer table tbody td{
+  text-align: center;
+  padding: 7px;
+  min-width: 7px;
+}
+.tableContainer table tbody td{
+  border-bottom: 1px solid #c9c5c2;
+}
+.tableContainer table{
+  border: 1px solid #c9c5c2;
+}
+.btn-edit,
+.btn-delete{
+  font-size: 16px;
+  padding: 5px 10px;
+  margin: 0px 10px;
+  color: white;
+}
+.btn-edit{
+  background-color: #2de0a2;
+}
+.btn-delete{
+  background-color: #d32222;
 }

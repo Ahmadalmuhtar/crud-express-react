@@ -46,11 +46,21 @@ app.post('/create', async (req, res) => {
 
 app.put('/user/:id', async (req, res) => {
     try {
-        const id = req.params.id
+        const id = req.params.id;
         console.log(req.body);
-        const { ...rest } = req.body
-        const data = await user.update(rest, { where: { id: id }, returning: true });
-        res.json({ success: true, message: 'User updated successfully', data: data });
+
+        const { ...rest } = req.body;
+
+        const [rowsUpdated, [updatedUser]] = await user.update(rest, {
+            where: { id: id },
+            returning: true,
+        });
+
+        if (rowsUpdated === 0) {
+            return res.status(404).json({ success: false, message: 'User not found' });
+        }
+
+        res.json({ success: true, message: 'User updated successfully', data: updatedUser });
     } catch (error) {
         console.error('Error updating User: ', error);
         res.status(500).json({ success: false, message: 'Error updating User' });
